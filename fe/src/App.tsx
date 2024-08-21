@@ -16,9 +16,11 @@ function App() {
       for (let i = 0; i < slice.length; i++) {
         byteNumbers[i] = slice.charCodeAt(i);
       }
+
       const byteArray = new Uint8Array(byteNumbers);
       byteArrays.push(byteArray);
     }
+
     return new Blob(byteArrays, { type: mimeType });
   };
 

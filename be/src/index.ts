@@ -94,10 +94,15 @@ io.on('connection', (socket) => {
   // 최초 시작 시 인덱스 설정
   updateIndices()
     .then(() => {
-      // 이미지 전송 주기 설정
+      // 이미지 전송 주기 설정 (부스트 온)
       const intervalId = setInterval(() => {
         updateIndices().then(sendImage);
       }, 100);
+
+      // 이미지 전송 주기 설정 (부스트 온)
+      // const intervalId = setInterval(() => {
+      //   updateIndices().then(sendImage);
+      // }, 200);
 
       socket.on('disconnect', () => {
         console.log('User disconnected!');
