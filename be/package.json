@@ -7,11 +7,13 @@
     "@types/socket.io": "^3.0.2",
     "express": "^4.19.2",
     "fs": "^0.0.1-security",
+    "sharp": "0.29.3",
     "socket.io": "^4.7.5"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
     "@types/node": "^22.3.0",
+    "@types/sharp": "0.29.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
   },

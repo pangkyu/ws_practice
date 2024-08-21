@@ -3,6 +3,7 @@ import { createServer } from 'http';
 import { Server } from 'socket.io';
 import fs from 'fs';
 import path from 'path';
+import sharp from 'sharp'; // sharp 라이브러리 임포트
 
 const app = express();
 const port = 8000;
@@ -71,12 +72,22 @@ io.on('connection', (socket) => {
       }
 
       console.log(imagePath);
-      const base64Image = data.toString('base64');
-      socket.emit('image-stream', base64Image);
 
-      // 다음 유효한 인덱스로 이동
-      const currentIdxInArray = validIndices.indexOf(currentIndex);
-      currentIndex = validIndices[(currentIdxInArray + 1) % validIndices.length];
+      // sharp 라이브러리로 jpg 이미지를 webp로 변환
+      sharp(data)
+        .webp({ quality: 80 })
+        .toBuffer()
+        .then((webpData) => {
+          const base64Image = webpData.toString('base64');
+          socket.emit('image-stream', base64Image);
+
+          // 다음 유효한 인덱스로 이동
+          const currentIdxInArray = validIndices.indexOf(currentIndex);
+          currentIndex = validIndices[(currentIdxInArray + 1) % validIndices.length];
+        })
+        .catch((err) => {
+          console.error('Error converting image to webp:', err);
+        });
     });
   };
 
