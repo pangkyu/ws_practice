@@ -11,7 +11,6 @@ function App() {
     socket.on('image-stream', (base64Image) => {
       setImageSrc(`data:image/jpeg;base64,${base64Image}`);
     });
-
     return () => {
       socket.disconnect();
     };
